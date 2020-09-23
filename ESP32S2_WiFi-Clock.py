@@ -1,4 +1,5 @@
 # ESP32-S2 WiFi Clock
+# Requires "adafruit_requests" and "neopixel" driver installed
 
 SSID = '' # your WiFi ssid
 PW   = '' # your WiFi password
