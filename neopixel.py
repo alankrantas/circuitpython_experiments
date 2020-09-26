@@ -1,4 +1,4 @@
-# baseed on Adafruit's demo code; neopixel driver is needed
+# From Adafruit's demo code; neopixel driver is needed
 
 import board, time, neopixel
 
