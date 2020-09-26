@@ -1,5 +1,6 @@
 # ESP32S2 WiFi Clock with SSD1306 Display
 # You need to install "adafruit_requests" and "adafruit_ssd1306" drivers
+# as well as put font5x8.bin in the root directory.
 
 SSID = '' # your WiFi ssid
 PW   = '' # your WiFi password
