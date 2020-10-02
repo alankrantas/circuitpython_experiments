@@ -1,10 +1,9 @@
-# ESP32S2 WiFi Clock with SSD1306 Display
-# You need to install "adafruit_requests" and "adafruit_ssd1306" drivers
-# as well as put font5x8.bin in the root directory.
-
 SSID = '' # your WiFi ssid
 PW   = '' # your WiFi password
 URL  = 'http://worldtimeapi.org/api/ip' # http://worldtimeapi.org/
+
+UPDATE_DELAY       = 3600 # query API every 3600 seconds (1 hour)
+UPDATE_RETRY_DELAY = 10   # wait 10 seconds to retry after failed querying
 
 
 import wifi, socketpool, ssl, adafruit_requests
@@ -20,7 +19,7 @@ weekday = ('Monday',
            'Sunday')
 
 
-i2c = busio.I2C(board.IO40, board.IO41)
+i2c = busio.I2C(scl=board.IO40, sda=board.IO41, frequency=400000)
 display = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
 display.fill(0)
 display.show()
@@ -40,8 +39,7 @@ display.text('WiFi scanned.', 0, 8, 1)
 display.show()
 
 
-connected    = False
-time_updated = False
+last_updated_time = -UPDATE_DELAY
 
 try:
 
@@ -51,55 +49,55 @@ try:
         display.show()
 
         wifi.radio.connect(SSID, PW)
-        connected = True
         print('Connected.\n')
         display.text('Connected.', 0, 32, 1)
         display.show()
+        time.sleep(1)
 
     else:
         print('SSID not set.\n')
         display.text('SSID not set.', 0, 32, 1)
         display.show()
+        while True:
+            pass
 
 except ConnectionError as e:
     print('Failed to connect:', e, '\n')
     display.text('Failed to connect:', 0, 32, 1)
     display.text(e, 0, 32, 1)
     display.show()
+    while True:
+        pass
 
 
+pool = socketpool.SocketPool(wifi.radio)
+requests = adafruit_requests.Session(pool, ssl.create_default_context())
 r = rtc.RTC()
 
-if connected:
 
-    pool = socketpool.SocketPool(wifi.radio)
-    requests = adafruit_requests.Session(pool, ssl.create_default_context())
-
-    print('Querying time...')
-    display.text('Querying time...', 0, 48, 1)
-    display.show()
-
-    response = requests.get(URL)
-
-    if response.status_code == 200:
-        data = response.json()
-        unixtime = data['unixtime'] + data['raw_offset']
-
-        r.datetime = time.localtime(unixtime)
-        time_updated = True
-        print('RTC time updated.\n')
-        display.text('RTC time updated.', 0, 56, 1)
+while True:
+    
+    if time.time() - last_updated_time >= UPDATE_DELAY:
+        
+        print('Querying time...')
+        display.fill(0)
+        display.text('CircuitPython Clock', 0, 0, 1)
+        display.text('ESP32-S2', 0, 16, 1)
+        display.text('Updating time...', 0, 40, 1)
         display.show()
+    
+        response = requests.get(URL)
+        
+        if response.status_code == 200:
+            data = response.json()
+            unixtime = data['unixtime'] + data['raw_offset']
+            r.datetime = time.localtime(unixtime)
+            print('RTC time updated.\n')
+            last_updated_time = time.time()
 
-    else:
-        print('Failed to query time.\n')
-        display.text('Query failed.', 0, 56, 1)
-        display.show()
-
-
-time.sleep(1)
-
-while time_updated:
+        else:
+            print('Failed to query time.\n')
+            last_updated_time = -UPDATE_DELAY + UPDATE_RETRY_DELAY
 
     dt = r.datetime
     y, mn, d = dt.tm_year, dt.tm_mon, dt.tm_mday
@@ -115,7 +113,5 @@ while time_updated:
     display.text(w, 0, 40, 1)
     display.text(f'{date_str} {time_str}', 0, 56, 1)
     display.show()
-
-
-while not time_updated:
-    pass
+    
+    time.sleep(0.1)
