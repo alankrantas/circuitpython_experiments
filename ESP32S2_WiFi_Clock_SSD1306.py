@@ -2,8 +2,8 @@ SSID = '' # your WiFi ssid
 PW   = '' # your WiFi password
 URL  = 'http://worldtimeapi.org/api/ip' # http://worldtimeapi.org/
 
-UPDATE_DELAY       = 3600 # query API every 3600 seconds (1 hour)
-UPDATE_RETRY_DELAY = 10   # wait 10 seconds to retry after failed querying
+UPDATE_DELAY       = 900
+UPDATE_RETRY_DELAY = 15
 
 
 import wifi, socketpool, ssl, adafruit_requests
@@ -71,32 +71,37 @@ except ConnectionError as e:
 
 
 pool = socketpool.SocketPool(wifi.radio)
-requests = adafruit_requests.Session(pool, ssl.create_default_context())
 r = rtc.RTC()
 
-
 while True:
-    
+
     if time.time() - last_updated_time >= UPDATE_DELAY:
-        
+
         print('Querying time...')
         display.fill(0)
         display.text('CircuitPython Clock', 0, 0, 1)
         display.text('ESP32-S2', 0, 16, 1)
         display.text('Updating time...', 0, 40, 1)
         display.show()
-    
-        response = requests.get(URL)
-        
-        if response.status_code == 200:
-            data = response.json()
-            unixtime = data['unixtime'] + data['raw_offset']
-            r.datetime = time.localtime(unixtime)
-            print('RTC time updated.\n')
-            last_updated_time = time.time()
 
-        else:
-            print('Failed to query time.\n')
+        try:
+            requests = adafruit_requests.Session(pool, ssl.create_default_context())
+            response = requests.get(URL)
+
+            if response.status_code == 200:
+                data = response.json()
+                unixtime = data['unixtime'] + data['raw_offset']
+                r.datetime = time.localtime(unixtime)
+                response.close()
+                print('RTC time updated.\n')
+                last_updated_time = time.time()
+
+            else:
+                print('Failed to query time.\n')
+                last_updated_time = -UPDATE_DELAY + UPDATE_RETRY_DELAY
+
+        except Exception as e:
+            print('Request error:', e, '\n')
             last_updated_time = -UPDATE_DELAY + UPDATE_RETRY_DELAY
 
     dt = r.datetime
@@ -113,5 +118,5 @@ while True:
     display.text(w, 0, 40, 1)
     display.text(f'{date_str} {time_str}', 0, 56, 1)
     display.show()
-    
+
     time.sleep(0.1)
