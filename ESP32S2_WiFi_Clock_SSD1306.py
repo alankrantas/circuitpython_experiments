@@ -7,7 +7,11 @@ UPDATE_RETRY_DELAY = 15
 
 
 import wifi, socketpool, ssl, adafruit_requests
-import board, busio, rtc, time, adafruit_ssd1306
+import board, busio, adafruit_ssd1306
+import rtc, time, gc
+
+r = rtc.RTC()
+gc.enable()
 
 
 weekday = ('Monday',
@@ -70,9 +74,6 @@ except ConnectionError as e:
         pass
 
 
-pool = socketpool.SocketPool(wifi.radio)
-r = rtc.RTC()
-
 while True:
 
     if time.time() - last_updated_time >= UPDATE_DELAY:
@@ -85,6 +86,7 @@ while True:
         display.show()
 
         try:
+            pool = socketpool.SocketPool(wifi.radio)
             requests = adafruit_requests.Session(pool, ssl.create_default_context())
             response = requests.get(URL)
 
