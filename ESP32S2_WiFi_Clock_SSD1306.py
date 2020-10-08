@@ -2,8 +2,8 @@ SSID = '' # your WiFi ssid
 PW   = '' # your WiFi password
 URL  = 'http://worldtimeapi.org/api/ip' # http://worldtimeapi.org/
 
-UPDATE_DELAY       = 900
-UPDATE_RETRY_DELAY = 15
+UPDATE_DELAY       = 600
+UPDATE_RETRY_DELAY = 10
 
 
 import wifi, socketpool, ssl, adafruit_requests
@@ -100,11 +100,11 @@ while True:
 
             else:
                 print('Failed to query time.\n')
-                last_updated_time = -UPDATE_DELAY + UPDATE_RETRY_DELAY
+                last_updated_time = time.time() - UPDATE_DELAY + UPDATE_RETRY_DELAY
 
         except Exception as e:
             print('Request error:', e, '\n')
-            last_updated_time = -UPDATE_DELAY + UPDATE_RETRY_DELAY
+            last_updated_time = time.time() - UPDATE_DELAY + UPDATE_RETRY_DELAY
 
     dt = r.datetime
     y, mn, d = dt.tm_year, dt.tm_mon, dt.tm_mday
@@ -120,5 +120,3 @@ while True:
     display.text(w, 0, 40, 1)
     display.text(f'{date_str} {time_str}', 0, 56, 1)
     display.show()
-
-    time.sleep(0.1)
