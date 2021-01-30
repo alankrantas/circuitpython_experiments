@@ -4,9 +4,9 @@ Boards:
 
 * WeMos D1 mini (ESP8266/Xtensa LX106)
 * Espressif ESP32-Pico-Kit (ESP32/Xtensa LX6, 240 MHz)
-* Espressif ESP32-S2 Saola WROVER (ESP32S2/Xtensa LX7, 240 MHz)
-* Adafruit Metro M4 Express (ATSAMD51J19A, 120 MHz)
-* Raspberry Pi Pico (RP2040, up to 133 MHz)
+* Espressif ESP32-S2 Saola WROVER (ESP32S2/Dual core Xtensa LX7, 240 MHz)
+* Adafruit Metro M4 Express (ATSAMD51J19A/Cortex M4, 120 MHz)
+* Raspberry Pi Pico (RP2040/Dual core Cortex M0+, up to 133 MHz)
 
 The codes are the same except using different modules (like math, random, time) in respective firmwares.
 
@@ -19,8 +19,7 @@ Firmwares:
 Notes:
 
 * RPi Pico appers to run at 125 MHz in both MicroPython and CircuitPython.
-* ESP8266 can be set to 160 MHz in MP. By default ESP32 runs only at 160 MHz in MP. I set it to 240 MHz.
-* ESP32 and RPi Pico's processors are dual core. I've tried other ESP32 boards but there's no different to ESP32-Pico.
+* ESP8266 can be set to 160 MHz in MP. By default ESP32 runs only at 160 MHz in MP. I set it to 240 MHz. I've tried other ESP32 boards but there's no different to ESP32-Pico.
 
 ### Solving 8-Queens problem (using a single Python list with recursion)
 
