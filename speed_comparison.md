@@ -20,7 +20,7 @@ Notes:
 
 * RPi Pico appers to run at 125 MHz in both MicroPython and CircuitPython.
 * ESP8266 can be set to 160 MHz in MP. By default ESP32 runs only at 160 MHz in MP. I set it to 240 MHz.
-* ESP32 and RPi Pico's processors are dual core.
+* ESP32 and RPi Pico's processors are dual core. I've tried other ESP32 boards but there's no different to ESP32-Pico.
 
 ### Solving 8-Queens problem (using a single Python list with recursion)
 
@@ -31,7 +31,7 @@ Python list - even on microcontrollers - is usually faster compared to bytearray
 * RPi Pico (MicroPython): 2284.749 ms
 * ESP32-S2 Saola: 3266.36 ms
 * Metro M4: 1575.32 ms
-* RPi Pico: 1956.05 ms
+* RPi Pico (CircuitPython): 1956.05 ms
 
 ### Conway's Game of Life on a 64x32 board (using bytearrays nested in a list), single generation calculation time
 
@@ -42,9 +42,11 @@ This was originally written to display Conway's Game of Life on a 128x64 SSD1306
 * RPi Pico (MicroPython): 739~742 ms
 * ESP32-S2 Saola: 408~414 ms
 * Metro M4: 496~501 ms
-* RPi Pico: 583~584 ms
+* RPi Pico (CircuitPython: 583~584 ms
 
 ### SEFR classification training time on IRIS dataset (150 instances x 4 features with 3 labels), using Python lists, garbage collection enabled
+
+Runs list comprehensions and calculates some floating numbers.
 
 * D1 mini (160 MHz): 208.01 ms
 * ESP32-Pico-Kitt (240 MHz): 169.769 ms
@@ -54,9 +56,12 @@ This was originally written to display Conway's Game of Life on a 128x64 SSD1306
 * RPi Pico (no ulab): 166.992 ms
 * ESP32S2 Saola (using ulab): 69.8242 ms
 * Metro M4 (using ulab): 45.5322 ms
-* RPi Pico (using ulab): 70.3125 ms
+* RPi Pico (CircuitPython, using ulab): 70.3125 ms
 
 ulab is a simplified Numpy module in CircuitPython, which is not avaliable for SAMD21 boards.
 
 ### Conclusion
 
+* CircuitPython usually runs a bit faster than MicroPython.
+* RPi Pico performs very, very close to ESP32.
+* Metro M4 is usually the fastest.
