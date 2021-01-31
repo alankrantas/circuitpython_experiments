@@ -25,6 +25,8 @@ Notes:
 
 Python list - even on microcontrollers - is usually faster compared to bytearray and array (from the array module).
 
+All data are integer.
+
 * D1 mini (160 MHz): 2645.56 ms	
 * ESP32-Pico-Kit (240 MHz): 2100.727 ms
 * RPi Pico (MicroPython): 2284.749 ms
@@ -36,6 +38,8 @@ Python list - even on microcontrollers - is usually faster compared to bytearray
 
 This was originally written to display Conway's Game of Life on a 128x64 SSD1306 OLED module. So I have to use bytearray to save memory.
 
+It requires a lot of iteration. All data are integer.
+
 * D1 mini (160 MHz): 1032~1034 ms
 * ESP32-Pico-Kit (240 MHz): 561~564 ms
 * RPi Pico (MicroPython): 739~742 ms
@@ -45,7 +49,7 @@ This was originally written to display Conway's Game of Life on a 128x64 SSD1306
 
 ### SEFR classification training time on IRIS dataset (150 instances x 4 features with 3 labels), using Python lists, garbage collection enabled
 
-Runs list comprehensions and calculates some floating numbers.
+Runs quite a few list comprehensions.
 
 * D1 mini (160 MHz): 208.01 ms
 * ESP32-Pico-Kit (240 MHz): 169.769 ms
