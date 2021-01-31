@@ -3,9 +3,9 @@ This was a quick test to see how Raspberry Pi Pico performs compared to other si
 Boards:
 
 * WeMos D1 mini (ESP8266/Xtensa LX106, 80/160 MHz)
-* Espressif ESP32-Pico-Kit (ESP32/Xtensa LX6, 240 MHz)
-* Espressif ESP32-S2 Saola WROVER (ESP32S2/Dual core Xtensa LX7, 240 MHz)
-* Adafruit Metro M4 Express (SAMD51/Cortex M4, 120 MHz)
+* Espressif ESP32-Pico-Kit (ESP32/Dual core Xtensa LX6, 240 MHz)
+* Espressif ESP32-S2 Saola WROVER (ESP32S2/Xtensa LX7, 240 MHz)
+* Adafruit Metro M4 Express (SAMD51/Cortex M4F, 120 MHz)
 * Raspberry Pi Pico (RP2040/Dual core Cortex M0+, up to 133 MHz)
 
 The codes are the same except using different modules (like math, random, time) in respective firmwares.
