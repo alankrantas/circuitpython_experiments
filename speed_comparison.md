@@ -2,10 +2,10 @@ This was a quick test to see how Raspberry Pi Pico performs compared to other si
 
 Boards:
 
-* WeMos D1 mini (ESP8266/Xtensa LX106)
+* WeMos D1 mini (ESP8266/Xtensa LX106, 80/160 MHz)
 * Espressif ESP32-Pico-Kit (ESP32/Xtensa LX6, 240 MHz)
 * Espressif ESP32-S2 Saola WROVER (ESP32S2/Dual core Xtensa LX7, 240 MHz)
-* Adafruit Metro M4 Express (ATSAMD51J19A/Cortex M4, 120 MHz)
+* Adafruit Metro M4 Express (SAMD51/Cortex M4, 120 MHz)
 * Raspberry Pi Pico (RP2040/Dual core Cortex M0+, up to 133 MHz)
 
 The codes are the same except using different modules (like math, random, time) in respective firmwares.
@@ -14,12 +14,12 @@ Firmwares:
 
 * ESP8266/ESP32: MicroPython v1.13
 * ESP32-S2 and Metro M4: CircuitPython 6.1.0
-* RPi Pico uses MicroPython v1.13 and CircuitPython 6.2.0 beta
+* RPi Pico uses its MicroPython v1.13 and CircuitPython 6.2.0 beta
 
 Notes:
 
 * RPi Pico appers to run at 125 MHz in both MicroPython and CircuitPython.
-* ESP8266 can be set to 160 MHz in MP. By default ESP32 runs only at 160 MHz in MP. I set it to 240 MHz. I've tried other ESP32 boards but there's no different to ESP32-Pico.
+* ESP8266 can be set to 160 MHz in MP. By default ESP32 runs only at 160 MHz in MP. I set it to 240 MHz. I've tried other ESP32 boards but there's no difference to ESP32-Pico.
 
 ### Solving 8-Queens problem (using a single Python list with recursion)
 
@@ -41,7 +41,7 @@ This was originally written to display Conway's Game of Life on a 128x64 SSD1306
 * RPi Pico (MicroPython): 739~742 ms
 * ESP32-S2 Saola: 408~414 ms
 * Metro M4: 496~501 ms
-* RPi Pico (CircuitPython: 583~584 ms
+* RPi Pico (CircuitPython): 583~584 ms
 
 ### SEFR classification training time on IRIS dataset (150 instances x 4 features with 3 labels), using Python lists, garbage collection enabled
 
@@ -52,7 +52,7 @@ Runs list comprehensions and calculates some floating numbers.
 * RPi Pico (MicroPython): 175.757 ms
 * ESP32-S2 Saola (no ulab): 242.554 ms
 * Metro M4 (no ulab): 122.803 ms
-* RPi Pico (no ulab): 166.992 ms
+* RPi Pico (CircuitPython, no ulab): 166.992 ms
 * ESP32S2 Saola (using ulab): 69.8242 ms
 * Metro M4 (using ulab): 45.5322 ms
 * RPi Pico (CircuitPython, using ulab): 70.3125 ms
