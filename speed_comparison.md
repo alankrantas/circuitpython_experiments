@@ -37,7 +37,7 @@ Python list - even on microcontrollers - is usually faster compared to bytearray
 This was originally written to display Conway's Game of Life on a 128x64 SSD1306 OLED module. So I have to use bytearray to save memory.
 
 * D1 mini (160 MHz): 1032~1034 ms
-* ESP32-Pico-Kitt (240 MHz): 561~564 ms
+* ESP32-Pico-Kit (240 MHz): 561~564 ms
 * RPi Pico (MicroPython): 739~742 ms
 * ESP32-S2 Saola: 408~414 ms
 * Metro M4: 496~501 ms
@@ -48,7 +48,7 @@ This was originally written to display Conway's Game of Life on a 128x64 SSD1306
 Runs list comprehensions and calculates some floating numbers.
 
 * D1 mini (160 MHz): 208.01 ms
-* ESP32-Pico-Kitt (240 MHz): 169.769 ms
+* ESP32-Pico-Kit (240 MHz): 169.769 ms
 * RPi Pico (MicroPython): 175.757 ms
 * ESP32-S2 Saola (no ulab): 242.554 ms
 * Metro M4 (no ulab): 122.803 ms
@@ -59,8 +59,15 @@ Runs list comprehensions and calculates some floating numbers.
 
 ulab is a simplified Numpy module in CircuitPython, which is not avaliable for SAMD21 boards.
 
+In the test above all data is in integer and convert to floating number only at certain points (to speed up calculation and save memory). Below is the result of using all floating number data (the original IRIS dataset):
+
+* ESP32-Pico-Kit (240 MHz): 178.024 ms
+* RPi Pico (MicroPython): 182.918 ms
+* Metro M4 (no ulab): 124.39 ms
+* RPi Pico (CircuitPython, no ulab): 167.969 ms
+
 ### Conclusion
 
 * CircuitPython usually runs a bit faster than MicroPython.
 * RPi Pico performs very, very close to ESP32.
-* Metro M4 is usually the fastest.
+* Due to some reason, Metro M4 is usually the fastest.
