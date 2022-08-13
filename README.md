@@ -7,13 +7,18 @@ Some experiment codes written in CircuitPython, which is a variation of MicroPyt
 ```python
 import board, digitalio, time
 
-led = digitalio.DigitalInOut(board.D13)
+led = digitalio.DigitalInOut(board.LED)
 led.direction = digitalio.Direction.OUTPUT
 
 while True:
     led.value = not led.value
     time.sleep(0.5)
 ```
+
+# Files
+
+* neopixel.py: a demo for NeoPixel LEDs. Requires ```neopixel.mpy``` in the drivers bundle.
+* hd44780.mpy: driver for I2C LCD1602. Fixed I2C timing and converted from [bablokb/circuitpython-hd44780](https://github.com/bablokb/circuitpython-hd44780).
 
 # Resource Links
 
