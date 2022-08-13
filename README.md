@@ -1,7 +1,5 @@
 # CircuitPython Experiments
 
-Some experiment codes written in CircuitPython, which is a variation of MicroPython mostly designed for SAMD21/51 and nRF52 microcontrollers. ESP32-S2 is supported since CircuitPython 6.0.0.
-
 # Blinky
 
 ```python
