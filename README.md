@@ -16,6 +16,7 @@ while True:
 # Files
 
 * neopixel.py: a demo for NeoPixel LEDs. Requires ```neopixel.mpy``` in the drivers bundle.
+* audiomixer.py: a demo of using audiomixer to play multiple audio files
 * hd44780.mpy: driver for I2C LCD1602. Fixed I2C timing and converted from [bablokb/circuitpython-hd44780](https://github.com/bablokb/circuitpython-hd44780).
 
 # Resource Links
