@@ -1,7 +1,7 @@
 import board, digitalio, audioio, audiocore, audiomixer, time
 
-# the pin has to support DAC
-# on some boards it's DAC0/DAC1
+# the pin has to support DAC; on some boards it's called DAC0/DAC1
+# connect the pin and a GND to an earphone with a potentiometer in between as volume control or an audio amplifier
 audio = audioio.AudioOut(board.A0)
 
 # you can have as many as channels (voice counts)!
