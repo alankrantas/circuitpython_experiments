@@ -19,6 +19,18 @@ while True:
 * audiomixer.py: a demo of using audiomixer to play multiple audio files
 * hd44780.mpy: driver for I2C LCD1602. Fixed I2C timing and converted from [bablokb/circuitpython-hd44780](https://github.com/bablokb/circuitpython-hd44780).
 
+```python
+import busio, board
+from hd44780 import HD44780
+
+i2c = busio.I2C(scl=board.SCL, sda=board.SDA, frequency=400000)
+display = HD44780(i2c=i2c, address=0x27)
+
+display.clear()
+display.write('Hello', 1)
+display.write('World', 2)
+```
+
 # Resource Links
 
 * [Firmware download](https://circuitpython.org/downloads)
