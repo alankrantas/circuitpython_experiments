@@ -13,11 +13,24 @@ while True:
     time.sleep(0.5)
 ```
 
+# Pulled-Up Button
+
+```python
+import board, digitalio, time
+
+btn = digitalio.DigitalInOut(board.D10)
+btn.switch_to_input(pull=digitalio.Pull.UP)
+
+while True:
+    print(not btn.value)
+    time.sleep(0.1)
+```
+
 # Files
 
-* neopixel.py: a demo for NeoPixel LEDs. Requires ```neopixel.mpy``` in the drivers bundle.
-* audiomixer.py: a demo of using audiomixer to play multiple audio files
-* hd44780.mpy: driver for I2C LCD1602. Fixed I2C timing and converted from [bablokb/circuitpython-hd44780](https://github.com/bablokb/circuitpython-hd44780).
+* ```neopixel.py```: a demo for NeoPixel LEDs. Requires ```neopixel.mpy``` in the drivers bundle.
+* ```audiomixer.py```: a demo of using ```audiomixer``` to play multiple audio files
+* ```hd44780.mpy```: driver for I2C LCD1602. Fixed I2C timing and converted from [bablokb/circuitpython-hd44780](https://github.com/bablokb/circuitpython-hd44780).
 
 ```python
 import busio, board
