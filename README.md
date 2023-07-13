@@ -1,6 +1,6 @@
 # CircuitPython Experiments
 
-# Blinky
+## Blinky
 
 ```python
 import board, digitalio, time
@@ -13,7 +13,7 @@ while True:
     time.sleep(0.5)
 ```
 
-# Pulled-Up Button
+## Pulled-Up Button
 
 ```python
 import board, digitalio, time
@@ -26,7 +26,21 @@ while True:
     time.sleep(0.1)
 ```
 
-# Files
+## I2C Scanner
+
+```board
+import board, busio, time
+
+# i2c = board.I2C()
+i2c = busio.I2C(board.SCL, board.SDA)
+
+while not i2c.try_lock():
+    pass
+
+print(i2c.scan())
+```
+
+## Files
 
 * ```neopixel.py```: a demo for NeoPixel LEDs. Requires ```neopixel.mpy``` in the drivers bundle.
 * ```audiomixer.py```: a demo of using ```audiomixer``` to play multiple audio files
