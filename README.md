@@ -28,7 +28,7 @@ while True:
 
 ## I2C Scanner
 
-```board
+```python
 import board, busio, time
 
 # i2c = board.I2C()
